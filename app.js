@@ -39,6 +39,7 @@ function speak(text) {
   utterance.pitch = 0.72;
   const voice = speechSynthesis.getVoices().find(item => item.lang.toLowerCase().startsWith("fr"));
   if (voice) utterance.voice = voice;
+  scanner?.classList.add("speaking");
   utterance.onstart = () => scanner?.classList.add("speaking");
   utterance.onend = stopScanner;
   utterance.onerror = stopScanner;
