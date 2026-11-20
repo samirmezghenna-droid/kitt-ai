@@ -28,6 +28,9 @@ function add(who, text) {
 }
 
 function speak(text) {
+  const scanner = document.querySelector(".scanner");
+  const stopScanner = () => scanner?.classList.remove("speaking");
+  stopScanner();
   if (!cfg.voice || !window.speechSynthesis) return;
   speechSynthesis.cancel();
   const utterance = new SpeechSynthesisUtterance(text);
@@ -36,6 +39,9 @@ function speak(text) {
   utterance.pitch = 0.72;
   const voice = speechSynthesis.getVoices().find(item => item.lang.toLowerCase().startsWith("fr"));
   if (voice) utterance.voice = voice;
+  utterance.onstart = () => scanner?.classList.add("speaking");
+  utterance.onend = stopScanner;
+  utterance.onerror = stopScanner;
   speechSynthesis.speak(utterance);
 }
 
