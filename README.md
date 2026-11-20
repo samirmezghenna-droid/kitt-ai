@@ -56,6 +56,7 @@ Node.js 18+ : exécutez npm test. Pour servir localement, utilisez npx serve . p
 - manifest.webmanifest, sw.js, assets/ : PWA.
 - server/worker.js : proxy IA.
 - tests/ : tests Node natifs.
+- docs/APPLE-CARPLAY.md : trajectoire documentée vers une app iOS native et CarPlay.
 
 ## Prochaines étapes
 1. Tester sur les versions iOS/Safari ciblées.
