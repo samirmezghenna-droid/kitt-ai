@@ -4,7 +4,8 @@ Prototype PWA mobile de KITT AI, assistant inspiré du tableau de bord noir et r
 
 ## Fonctions livrées
 - Interface noire et rouge, scanner à trois barres animées.
-- Commandes locales : aide, salutations, heure et ouverture de Waze.
+- Commandes locales : « Bonjour KITT », aide, heure et ouverture de Waze avec destination.
+- Destinations reconnues : « Ouvre Waze et va à la Tour Eiffel », « Navigue vers Lyon », « Conduis-moi à l'aéroport Charles-de-Gaulle ».
 - Synthèse vocale française avec réglage de hauteur et de débit (effet robotique léger, pas un véritable vocodeur).
 - Dictée via Web Speech Recognition si le navigateur l'expose.
 - Mot-clé « Bonjour KITT » au premier plan après activation explicite et permission micro, uniquement si l'API est disponible.
@@ -28,13 +29,15 @@ Prototype PWA mobile de KITT AI, assistant inspiré du tableau de bord noir et r
 
 Le site doit être servi en HTTPS (ou localhost) pour les API navigateur et le service worker.
 
-## Commandes locales
-- Bonjour KITT
-- Aide
-- Quelle heure est-il ?
-- Ouvre Waze
+## Commandes vocales / destinations
+- « Bonjour KITT »
+- « Quelle heure est-il ? »
+- « Ouvre Waze »
+- « Ouvre Waze et va à la Tour Eiffel »
+- « Navigue vers Lyon »
+- « Conduis-moi à l'aéroport Charles-de-Gaulle »
 
-Waze s'ouvre sans destination dans cette première version.
+La destination extraite est encodée dans le lien universel Waze (q=...&navigate=yes). Vérifiez l'adresse proposée par Waze avant de démarrer. Si la reconnaissance vocale iOS n'est pas disponible dans Safari, utilisez la dictée intégrée au clavier.
 
 ## Connecter l'IA (facultatif)
 1. Créez un Cloudflare Worker et copiez le fichier server/worker.js.
@@ -52,7 +55,7 @@ Node.js 18+ : exécutez npm test. Pour servir localement, utilisez npx serve . p
 - index.html : interface.
 - styles.css : tableau de bord et scanner.
 - app.js : voix, conversation et réglages.
-- core.js : commandes locales.
+- core.js : commandes locales et destinations Waze.
 - manifest.webmanifest, sw.js, assets/ : PWA.
 - server/worker.js : proxy IA.
 - tests/ : tests Node natifs.
@@ -60,10 +63,9 @@ Node.js 18+ : exécutez npm test. Pour servir localement, utilisez npx serve . p
 
 ## Prochaines étapes
 1. Tester sur les versions iOS/Safari ciblées.
-2. Ajouter la reconnaissance des destinations et leur transfert à Waze.
-3. Sécuriser le proxy IA avec quotas et authentification.
-4. Étudier un véritable traitement vocal audio.
-5. Étudier séparément une application iOS native et les règles Apple CarPlay. Ne pas annoncer CarPlay avant validation.
+2. Sécuriser le proxy IA avec quotas et authentification.
+3. Étudier un véritable traitement vocal audio.
+4. Étudier séparément une application iOS native et les règles Apple CarPlay. Ne pas annoncer CarPlay avant validation.
 
 ## Sécurité
-N'utilisez les commandes vocales que dans des conditions sûres. Ne manipulez pas l'écran en conduisant. Ces fonctions expérimentales ne remplacent pas les commandes du véhicule ni une assistance de sécurité.
+N'utilisez les commandes vocales que dans des conditions sûres. Ne manipulez pas l'écran en conduisant. Vérifiez toujours la destination dans Waze avant de partir. Ces fonctions expérimentales ne remplacent pas les commandes du véhicule ni une assistance de sécurité.
