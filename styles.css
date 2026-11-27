@@ -33,3 +33,24 @@
 .voicebox-panel .voicebox.speaking .col-3 i:nth-child(even){animation-delay:-.1s!important}
 .voicebox-panel .voice-mode{display:block!important;width:max-content!important;margin:9px auto 0!important;padding:6px 15px!important;background:linear-gradient(#f0d99a,#a38b4e)!important;color:#171208!important;border-radius:2px!important;font:bold 10px Arial!important;letter-spacing:.13em!important;text-align:center!important}
 @media(max-width:380px){.voicebox-panel .voicebox{grid-template-columns:48px minmax(0,1fr) 48px!important;gap:5px!important}.voicebox-panel .voice-side span{font-size:9px!important}.voicebox-panel .voice-display{gap:7px!important}}
+
+/* Voice-synchronised KITT scanner: animated LED segments while speech is playing */
+.voicebox-panel .voicebox.speaking .voice-column i{
+  animation: kittVoicePulse .34s ease-in-out infinite alternate!important;
+  transform-origin:center;
+  will-change:transform,opacity,filter;
+}
+.voicebox-panel .voicebox.speaking .col-1 i:nth-child(3n){animation-duration:.27s!important}
+.voicebox-panel .voicebox.speaking .col-1 i:nth-child(3n + 1){animation-delay:-.19s!important}
+.voicebox-panel .voicebox.speaking .col-2 i:nth-child(4n){animation-duration:.42s!important;animation-delay:-.28s!important}
+.voicebox-panel .voicebox.speaking .col-2 i:nth-child(odd){animation-delay:-.11s!important}
+.voicebox-panel .voicebox.speaking .col-3 i:nth-child(3n + 2){animation-duration:.30s!important;animation-delay:-.23s!important}
+.voicebox-panel .voicebox.speaking .col-3 i:nth-child(even){animation-delay:-.07s!important}
+@keyframes kittVoicePulse{
+  from{transform:scaleY(.48);opacity:.48;filter:brightness(.75)}
+  55%{transform:scaleY(1.08);opacity:1;filter:brightness(1.5)}
+  to{transform:scaleY(.68);opacity:.72;filter:brightness(1.1)}
+}
+@media(prefers-reduced-motion:reduce){
+  .voicebox-panel .voicebox.speaking .voice-column i{animation:none!important;transform:none!important;opacity:1!important}
+}
