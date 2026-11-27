@@ -55,18 +55,20 @@ function startMeter() {
   stopMeter();
   const columns = [...document.querySelectorAll(".voice-column")];
   if (columns.length !== 3) return;
-  const levels = [5, 9, 6];
-  const targets = [8, 11, 9];
+
+  // A single smooth envelope drives all three columns so their movement
+  // feels like one instrument, with a slightly stronger centre column.
+  const startedAt = performance.now();
+  const levels = [5, 8, 5];
   const paint = () => columns.forEach((column, colIndex) => {
     const segments = [...column.querySelectorAll("i")];
     segments.forEach((segment, index) => {
       const lit = index < levels[colIndex];
       segment.classList.toggle("meter-on", lit);
-      // Inline important styles bypass older dashboard rules that could hide the LEDs.
       if (lit) {
         segment.style.setProperty("opacity", "1", "important");
         segment.style.setProperty("background", "linear-gradient(180deg,#ff8585 0%,#ff1828 42%,#b00010 100%)", "important");
-        segment.style.setProperty("box-shadow", "0 0 8px #f21b2b,0 0 2px #ff5a62,inset 0 0 2px #ffd0d0", "important");
+        segment.style.setProperty("box-shadow", "0 0 7px #f21b2b,0 0 14px #df071b88,inset 0 0 2px #ffd0d0", "important");
       } else {
         segment.style.setProperty("opacity", "0.12", "important");
         segment.style.setProperty("background", "#65070d", "important");
@@ -74,15 +76,21 @@ function startMeter() {
       }
     });
   });
+
   paint();
   meterTimer = setInterval(() => {
-    for (let i = 0; i < levels.length; i++) {
-      if (Math.random() < 0.42) targets[i] = 2 + Math.floor(Math.random() * 12);
-      const difference = targets[i] - levels[i];
-      if (difference !== 0) levels[i] += Math.sign(difference) * Math.min(Math.abs(difference), 1 + Math.floor(Math.random() * 2));
+    const t = (performance.now() - startedAt) / 1000;
+    const shared = Math.sin(t * 2.45) * 2.7 + Math.sin(t * 4.1) * 1.25;
+    const phases = [0.0, 0.38, 0.76];
+    const offsets = [-0.8, 1.25, -0.5];
+    for (let i = 0; i < 3; i++) {
+      const wave = shared + Math.sin(t * 1.65 + phases[i]) * 1.15 + offsets[i];
+      const target = Math.max(1, Math.min(13, Math.round(6.2 + wave)));
+      levels[i] += (target - levels[i]) * 0.42;
+      levels[i] = Math.round(levels[i]);
     }
     paint();
-  }, 115);
+  }, 85);
 }
 
 function speak(text) {
