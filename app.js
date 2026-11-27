@@ -36,6 +36,41 @@ function frenchVoice() {
 }
 
 let activeSpeech = null;
+let meterTimer = null;
+
+function stopMeter() {
+  if (meterTimer !== null) {
+    clearInterval(meterTimer);
+    meterTimer = null;
+  }
+  document.querySelectorAll(".voice-column").forEach(column => {
+    column.querySelectorAll("i").forEach((segment, index) => {
+      segment.classList.toggle("meter-on", index < 3);
+    });
+  });
+}
+
+function startMeter() {
+  stopMeter();
+  const columns = [...document.querySelectorAll(".voice-column")];
+  const levels = [5, 9, 6];
+  const targets = [8, 11, 9];
+  const paint = () => columns.forEach((column, colIndex) => {
+    const segments = [...column.querySelectorAll("i")];
+    segments.forEach((segment, index) => {
+      segment.classList.toggle("meter-on", index < levels[colIndex]);
+    });
+  });
+  paint();
+  meterTimer = setInterval(() => {
+    for (let i = 0; i < levels.length; i++) {
+      if (Math.random() < 0.42) targets[i] = 2 + Math.floor(Math.random() * 12);
+      const difference = targets[i] - levels[i];
+      if (difference !== 0) levels[i] += Math.sign(difference) * Math.min(Math.abs(difference), 1 + Math.floor(Math.random() * 2));
+    }
+    paint();
+  }, 115);
+}
 
 function speak(text) {
   const scanner = document.querySelector(".voicebox");
@@ -46,6 +81,7 @@ function speak(text) {
   }
   // Ignore end/error events from an older utterance cancelled by a new reply.
   activeSpeech = null;
+  stopMeter();
   speechSynthesis.cancel();
   const utterance = new SpeechSynthesisUtterance(text);
   activeSpeech = utterance;
@@ -59,13 +95,18 @@ function speak(text) {
     utterance.lang = voice.lang;
   }
   scanner?.classList.add("speaking");
+  startMeter();
   utterance.onstart = () => {
-    if (activeSpeech === utterance) scanner?.classList.add("speaking");
+    if (activeSpeech === utterance) {
+      scanner?.classList.add("speaking");
+      startMeter();
+    }
   };
   const finish = () => {
     if (activeSpeech !== utterance) return;
     activeSpeech = null;
     scanner?.classList.remove("speaking");
+    stopMeter();
   };
   utterance.onend = finish;
   utterance.onerror = finish;
