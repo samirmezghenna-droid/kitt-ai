@@ -150,3 +150,36 @@
 @media(prefers-reduced-motion:reduce){
   .voicebox-panel .voicebox.speaking .voice-column{animation:kittColumnWave 1.05s ease-in-out infinite!important}
 }
+
+
+/* Balayage KITT : les trois barres s'allument successivement de gauche à droite,
+   puis reviennent vers la gauche, comme un seul scanner horizontal. */
+.voicebox-panel .voicebox.speaking .voice-column{
+  animation-duration:1.1s!important;
+  animation-timing-function:linear!important;
+  animation-iteration-count:infinite!important;
+  animation-fill-mode:both!important;
+  will-change:opacity,filter;
+}
+.voicebox-panel .voicebox.speaking .voice-column i{
+  animation:none!important;
+  transform:none!important;
+  opacity:1!important;
+  box-shadow:0 0 3px #8e1018!important;
+  transition:none!important;
+}
+.voicebox-panel .voicebox.speaking .col-1{animation-name:kittSweepLeft!important}
+.voicebox-panel .voicebox.speaking .col-2{animation-name:kittSweepMiddle!important}
+.voicebox-panel .voicebox.speaking .col-3{animation-name:kittSweepRight!important}
+@keyframes kittSweepLeft{
+  0%,8%,92%,100%{opacity:1;filter:brightness(1.9);box-shadow:0 0 15px #ff2634}
+  25%,50%,75%{opacity:.22;filter:brightness(.65)}
+}
+@keyframes kittSweepMiddle{
+  0%,8%,42%,58%,92%,100%{opacity:.22;filter:brightness(.65)}
+  25%,75%{opacity:1;filter:brightness(1.9);box-shadow:0 0 15px #ff2634}
+}
+@keyframes kittSweepRight{
+  0%,25%,75%,100%{opacity:.22;filter:brightness(.65)}
+  42%,58%{opacity:1;filter:brightness(1.9);box-shadow:0 0 15px #ff2634}
+}
