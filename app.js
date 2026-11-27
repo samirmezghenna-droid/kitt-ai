@@ -50,8 +50,9 @@ function speak(text) {
   const utterance = new SpeechSynthesisUtterance(text);
   activeSpeech = utterance;
   utterance.lang = "fr-FR";
-  utterance.rate = 0.88;
-  utterance.pitch = 0.72;
+  utterance.rate = 0.82;
+  utterance.pitch = 0.55;
+  utterance.volume = 1;
   const voice = frenchVoice();
   if (voice) {
     utterance.voice = voice;
