@@ -267,3 +267,24 @@
 }
 .voicebox-panel .voicebox:not(.speaking) .voice-column i{opacity:.16!important}
 .voicebox-panel .voicebox:not(.speaking) .voice-column i.meter-on{opacity:.58!important}
+
+
+/* KITT LED safety fallback: visible even if speech callbacks are delayed by iOS. */
+.voicebox-panel .voice-display .voice-column i{
+  display:block!important;
+  opacity:.48!important;
+  background:linear-gradient(180deg,#ff8585 0%,#ed1824 48%,#8d0710 100%)!important;
+  box-shadow:0 0 5px #ed1824!important;
+  animation:none!important;
+}
+.voicebox-panel .voicebox.speaking .voice-display .voice-column i{
+  opacity:1!important;
+  animation:kittLedGlow .42s ease-in-out infinite alternate!important;
+}
+.voicebox-panel .voicebox.speaking .voice-column:nth-child(1) i:nth-child(3n){animation-delay:-.22s!important}
+.voicebox-panel .voicebox.speaking .voice-column:nth-child(2) i:nth-child(4n){animation-delay:-.31s!important}
+.voicebox-panel .voicebox.speaking .voice-column:nth-child(3) i:nth-child(2n){animation-delay:-.14s!important}
+@keyframes kittLedGlow{
+  from{filter:brightness(.72);box-shadow:0 0 3px #ed1824}
+  to{filter:brightness(1.45);box-shadow:0 0 11px #ff2634}
+}
