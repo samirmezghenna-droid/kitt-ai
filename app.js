@@ -43,22 +43,35 @@ function stopMeter() {
     clearInterval(meterTimer);
     meterTimer = null;
   }
-  document.querySelectorAll(".voice-column").forEach(column => {
-    column.querySelectorAll("i").forEach((segment, index) => {
-      segment.classList.toggle("meter-on", index < 3);
-    });
+  document.querySelectorAll(".voice-column i").forEach(segment => {
+    segment.classList.remove("meter-on");
+    segment.style.removeProperty("opacity");
+    segment.style.removeProperty("background");
+    segment.style.removeProperty("box-shadow");
   });
 }
 
 function startMeter() {
   stopMeter();
   const columns = [...document.querySelectorAll(".voice-column")];
+  if (columns.length !== 3) return;
   const levels = [5, 9, 6];
   const targets = [8, 11, 9];
   const paint = () => columns.forEach((column, colIndex) => {
     const segments = [...column.querySelectorAll("i")];
     segments.forEach((segment, index) => {
-      segment.classList.toggle("meter-on", index < levels[colIndex]);
+      const lit = index < levels[colIndex];
+      segment.classList.toggle("meter-on", lit);
+      // Inline important styles bypass older dashboard rules that could hide the LEDs.
+      if (lit) {
+        segment.style.setProperty("opacity", "1", "important");
+        segment.style.setProperty("background", "linear-gradient(180deg,#ff8585 0%,#ff1828 42%,#b00010 100%)", "important");
+        segment.style.setProperty("box-shadow", "0 0 8px #f21b2b,0 0 2px #ff5a62,inset 0 0 2px #ffd0d0", "important");
+      } else {
+        segment.style.setProperty("opacity", "0.12", "important");
+        segment.style.setProperty("background", "#65070d", "important");
+        segment.style.setProperty("box-shadow", "inset 0 0 2px #230000", "important");
+      }
     });
   });
   paint();
