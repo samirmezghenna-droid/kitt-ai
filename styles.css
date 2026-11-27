@@ -330,3 +330,32 @@
   .voicebox-panel .voice-column i{height:7px!important;min-height:7px!important}
   .instrument-row{margin-bottom:8px}
 }
+
+
+/* Formes arrondies : finition douce, sans dénaturer le tableau de bord KITT. */
+.dashboard{border-radius:0}
+.quick-controls{border-radius:18px!important}
+.quick-controls button,button{border-radius:14px}
+.voicebox-panel{border-radius:22px!important;padding:clamp(10px,2.2vw,20px)!important}
+.voicebox-panel .voice-display{border-radius:16px!important;overflow:hidden}
+.voicebox-panel .voice-side span{border-radius:12px!important}
+.voicebox-panel .voice-column i{border-radius:4px!important}
+.voice-mode{border-radius:10px!important}
+.display,.panel{border-radius:16px}
+article{border-left:0;border-radius:12px}
+#commandForm{border-radius:14px;overflow:hidden}
+input{border-radius:14px 0 0 14px}
+#commandForm button{border-radius:0}
+nav button,footer button{border-radius:12px}
+dialog{border-radius:20px}
+dialog input[type=url]{border-radius:10px}
+@media(max-width:420px){
+ .quick-controls{border-radius:16px!important}
+ .quick-controls button{border-radius:12px}
+ .voicebox-panel{border-radius:18px!important}
+ .voicebox-panel .voice-display{border-radius:13px!important}
+}
+@media(min-width:600px){
+ .voicebox-panel{border-radius:26px!important}
+ .voicebox-panel .voice-display{border-radius:20px!important}
+}
