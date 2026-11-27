@@ -124,3 +124,29 @@
   .voicebox-panel .voicebox{grid-template-columns:38px minmax(0,1fr) 38px!important;gap:6px!important}
   .voicebox-panel .voice-side span{font-size:8px!important;letter-spacing:.03em!important}
 }
+
+
+/* KITT modulator: one coordinated left-to-right / right-to-left light wave. */
+.voicebox-panel .voicebox.speaking .voice-column i{
+  animation:none!important;
+  transform:none!important;
+  opacity:.22!important;
+  filter:none!important;
+  box-shadow:0 0 3px #a20b14!important;
+}
+.voicebox-panel .voicebox.speaking .voice-column{
+  animation:kittColumnWave 1.05s ease-in-out infinite!important;
+  will-change:opacity,filter;
+}
+.voicebox-panel .voicebox.speaking .col-1{animation-delay:0s!important}
+.voicebox-panel .voicebox.speaking .col-2{animation-delay:.18s!important}
+.voicebox-panel .voicebox.speaking .col-3{animation-delay:.36s!important}
+@keyframes kittColumnWave{
+  0%,100%{opacity:.38;filter:brightness(.75)}
+  25%,75%{opacity:.72;filter:brightness(1.15)}
+  50%{opacity:1;filter:brightness(1.7)}
+}
+.voicebox-panel .voicebox.speaking .voice-column i:nth-child(3n){opacity:.22!important}
+@media(prefers-reduced-motion:reduce){
+  .voicebox-panel .voicebox.speaking .voice-column{animation:kittColumnWave 1.05s ease-in-out infinite!important}
+}
