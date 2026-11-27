@@ -1,4 +1,5 @@
-const C="kitt-ai-v32",A=["./","./index.html","./styles.css","./app.js","./core.js","./manifest.webmanifest","./assets/kitt-icon.svg"];
-self.addEventListener("install",e=>e.waitUntil(caches.open(C).then(c=>c.addAll(A)).then(()=>self.skipWaiting())));
-self.addEventListener("activate",e=>e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==C).map(k=>caches.delete(k)))).then(()=>self.clients.claim())));
-self.addEventListener("fetch",e=>{if(e.request.method!=="GET"||new URL(e.request.url).origin!==location.origin)return;e.respondWith(caches.match(e.request).then(x=>x||fetch(e.request).then(r=>{caches.open(C).then(c=>c.put(e.request,r.clone()));return r})))})
+const CACHE = "kitt-ai-v33";
+const ASSETS = ["./","./index.html","./styles.css","./app.js","./core.js","./manifest.webmanifest","./assets/kitt-icon.svg"];
+self.addEventListener("install", event => event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(ASSETS)).then(() => self.skipWaiting())));
+self.addEventListener("activate", event => event.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(key => key !== CACHE).map(key => caches.delete(key)))).then(() => self.clients.claim())));
+self.addEventListener("fetch", event => { if (event.request.method !== "GET" || new URL(event.request.url).origin !== location.origin) return; event.respondWith(caches.match(event.request).then(cached => cached || fetch(event.request).then(response => { caches.open(CACHE).then(cache => cache.put(event.request, response.clone())); return response; }))); });
