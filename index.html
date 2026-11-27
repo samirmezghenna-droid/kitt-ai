@@ -1,17 +1,20 @@
-<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#080808"><meta name="apple-mobile-web-app-capable" content="yes"><link rel="manifest" href="./manifest.webmanifest"><link rel="icon" href="./assets/kitt-icon.svg"><link rel="stylesheet" href="./styles.css?v=31"><title>KITT — Knight Industries Two Thousand</title></head><body>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#080808"><meta name="apple-mobile-web-app-capable" content="yes"><link rel="manifest" href="./manifest.webmanifest"><link rel="icon" href="./assets/kitt-icon.svg"><link rel="stylesheet" href="./styles.css?v=32"><title>KITT — Knight Industries Two Thousand</title></head><body>
 <main class="dashboard">
 <header class="topbar"><div class="brand"><b>K</b><span>K N I G H T <small>INDUSTRIES · TWO THOUSAND</small></span></div><span id="systemState">SYSTÈMES EN VEILLE</span></header>
-<div class="quick-controls" aria-label="Commandes vocales principales"><button id="talkButton">● PARLER À KITT</button><button id="wakeButton">ACTIVER « BONJOUR KITT »</button></div>
 <section class="cockpit">
 <div class="cockpit-label"><span>KNIGHT 2000</span><span id="clock">00:00:00</span></div>
 <div class="instrument-row" aria-hidden="true"><div class="gauge"><div class="gauge-face"><span class="gauge-name">TURBO</span><i class="needle"></i><b>0</b><small>100</small></div></div><div class="gauge large"><div class="gauge-face"><span class="gauge-name">POWER</span><i class="needle"></i><b>0</b><small>MAX</small></div></div><div class="gauge"><div class="gauge-face"><span class="gauge-name">TEMP</span><i class="needle"></i><b>°C</b><small>120</small></div></div></div>
 <div class="voicebox-panel">
-<div class="voicebox-title">K.I.T.T. · VOICE MODULATOR</div>
-<div class="voicebox">
-<div class="voice-side"><span>AIR</span><span>OIL</span><span class="red">P1</span><span class="red">P2</span></div>
+<div class="car-screen-layout">
+<div class="car-control car-control-left"><button id="talkButton" aria-label="Parler à KITT"><span class="control-symbol">●</span><span>PARLER À KITT</span></button></div>
+<div class="voicebox" aria-label="Modulateur vocal KITT">
+<div class="voice-side" aria-hidden="true"><span>AIR</span><span>OIL</span><span class="red">P1</span><span class="red">P2</span></div>
 <div class="voice-display" aria-label="Modulateur vocal à trois colonnes de LED rouges"><div class="voice-column col-1"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="voice-column col-2"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="voice-column col-3"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
-<div class="voice-side"><span>S1</span><span>S2</span><span class="red">P3</span><span class="red">P4</span></div>
-</div><div class="voice-mode">NORMAL CRUISE</div></div>
+<div class="voice-side" aria-hidden="true"><span>S1</span><span>S2</span><span class="red">P3</span><span class="red">P4</span></div>
+</div>
+<div class="car-control car-control-right"><button id="wakeButton" aria-label="Activer Bonjour KITT"><span class="control-symbol">◉</span><span>ACTIVER<br>« BONJOUR KITT »</span></button></div>
+</div>
+<div class="voice-mode">KNIGHT 2000 · SYSTÈME VOCAL</div></div>
 <div class="display"><div class="display-top"><span>ORDINATEUR DE BORD</span><span id="connectionLabel">MODE LOCAL</span></div><h1 id="greeting">BONJOUR. JE SUIS KITT.</h1><p id="subline">En attente de vos instructions, Samir.</p></div><div class="switch-bank" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div></section>
 <section class="panel"><div class="heading">JOURNAL DE BORD <span>TRANSMISSION</span></div><div id="messages" aria-live="polite"><article><b>KITT</b><p>Mes circuits sont opérationnels. Enfin, presque tous. Que puis-je faire pour vous ?</p></article></div></section>
 <section class="panel"><div class="heading">COMMANDES DU SYSTÈME <span id="voiceStatus">MICRO INACTIF</span></div><form id="commandForm"><input id="commandInput" placeholder="Entrez votre instruction…" autocomplete="off" aria-label="Commande ou destination"><button aria-label="Envoyer la commande">↗</button></form><nav><button data-command="Ouvre Waze">WAZE</button><button data-command="Quelle heure est-il ?">HEURE</button><button data-command="Aide">AIDE</button></nav></section>
