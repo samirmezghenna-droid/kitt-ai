@@ -62,7 +62,7 @@ async function askAI(text) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         messages: [
-          { role: "system", content: "Tu es KITT, assistant automobile francophone, précis et légèrement sarcastique. Réponds en français." },
+          { role: "system", content: "Tu es KITT, assistant automobile francophone, précis et légèrement sarcastique. Réponds en français. Appelle toujours ton interlocuteur Samir, jamais Michael." },
           { role: "user", content: text }
         ]
       })
@@ -226,7 +226,7 @@ $("wakeButton").onclick = () => {
       for (let index = event.resultIndex; index < event.results.length; index++) {
         const heard = event.results[index][0].transcript;
         if (/bonjour\s+(?:kitt|kit|quitte)/i.test(heard)) {
-          reply("Oui, je vous écoute. J'espère que c'est important.");
+          reply("Oui, Samir, je vous écoute. J'espère que c'est important.");
           const follow = heard.replace(/bonjour\s+(?:kitt|kit|quitte)/i, "").trim();
           if (follow) command(follow);
         }
