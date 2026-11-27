@@ -35,13 +35,20 @@ function frenchVoice() {
   ) || voices.find(item => item.lang.toLowerCase().startsWith("fr"));
 }
 
+let activeSpeech = null;
+
 function speak(text) {
   const scanner = document.querySelector(".voicebox");
-  const stopScanner = () => scanner?.classList.remove("speaking");
-  stopScanner();
-  if (!cfg.voice || !window.speechSynthesis) return;
+  if (!cfg.voice || !window.speechSynthesis) {
+    scanner?.classList.remove("speaking");
+    activeSpeech = null;
+    return;
+  }
+  // Ignore end/error events from an older utterance cancelled by a new reply.
+  activeSpeech = null;
   speechSynthesis.cancel();
   const utterance = new SpeechSynthesisUtterance(text);
+  activeSpeech = utterance;
   utterance.lang = "fr-FR";
   utterance.rate = 0.88;
   utterance.pitch = 0.72;
@@ -51,9 +58,16 @@ function speak(text) {
     utterance.lang = voice.lang;
   }
   scanner?.classList.add("speaking");
-  utterance.onstart = () => scanner?.classList.add("speaking");
-  utterance.onend = stopScanner;
-  utterance.onerror = stopScanner;
+  utterance.onstart = () => {
+    if (activeSpeech === utterance) scanner?.classList.add("speaking");
+  };
+  const finish = () => {
+    if (activeSpeech !== utterance) return;
+    activeSpeech = null;
+    scanner?.classList.remove("speaking");
+  };
+  utterance.onend = finish;
+  utterance.onerror = finish;
   speechSynthesis.speak(utterance);
 }
 
