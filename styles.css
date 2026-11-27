@@ -54,3 +54,14 @@
 @media(prefers-reduced-motion:reduce){
   .voicebox-panel .voicebox.speaking .voice-column i{animation:none!important;transform:none!important;opacity:1!important}
 }
+
+
+/* Final override: keep the KITT LED animation active even with iOS Reduce Motion. */
+.voicebox-panel .voicebox.speaking .voice-column i{
+  animation:kittVoicePulse .34s ease-in-out infinite alternate!important;
+  transform-origin:center!important;
+  will-change:transform,opacity,filter;
+}
+.voicebox-panel .voicebox.speaking .col-1 i:nth-child(3n){animation-duration:.27s!important;animation-delay:-.13s!important}
+.voicebox-panel .voicebox.speaking .col-2 i:nth-child(4n){animation-duration:.42s!important;animation-delay:-.22s!important}
+.voicebox-panel .voicebox.speaking .col-3 i:nth-child(3n + 2){animation-duration:.30s!important;animation-delay:-.17s!important}
