@@ -27,6 +27,14 @@ function add(who, text) {
   messages.scrollTop = messages.scrollHeight;
 }
 
+function frenchVoice() {
+  const voices = speechSynthesis.getVoices();
+  // Prefer Daniel only when the installed voice is French; otherwise use a French voice.
+  return voices.find(item =>
+    /daniel/i.test(item.name) && item.lang.toLowerCase().startsWith("fr")
+  ) || voices.find(item => item.lang.toLowerCase().startsWith("fr"));
+}
+
 function speak(text) {
   const scanner = document.querySelector(".voicebox");
   const stopScanner = () => scanner?.classList.remove("speaking");
@@ -37,8 +45,11 @@ function speak(text) {
   utterance.lang = "fr-FR";
   utterance.rate = 0.88;
   utterance.pitch = 0.72;
-  const voice = speechSynthesis.getVoices().find(item => item.lang.toLowerCase().startsWith("fr"));
-  if (voice) utterance.voice = voice;
+  const voice = frenchVoice();
+  if (voice) {
+    utterance.voice = voice;
+    utterance.lang = voice.lang;
+  }
   scanner?.classList.add("speaking");
   utterance.onstart = () => scanner?.classList.add("speaking");
   utterance.onend = stopScanner;
@@ -171,6 +182,11 @@ function startMic(Recognition) {
     speechSynthesis.cancel();
     const cue = new SpeechSynthesisUtterance("Je vous écoute.");
     cue.lang = "fr-FR";
+    const voice = frenchVoice();
+    if (voice) {
+      cue.voice = voice;
+      cue.lang = voice.lang;
+    }
     cue.rate = 1;
     cue.onend = () => {
       if (!recognition) beginRecognition(Recognition);
