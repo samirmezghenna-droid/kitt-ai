@@ -288,3 +288,45 @@
   from{filter:brightness(.72);box-shadow:0 0 3px #ed1824}
   to{filter:brightness(1.45);box-shadow:0 0 11px #ff2634}
 }
+
+
+/* iPhone Duo: adaptation automatique écran externe / écran interne. */
+.dashboard{
+  width:100%;
+  max-width:1100px;
+  min-height:100svh;
+  padding-left:max(12px,env(safe-area-inset-left));
+  padding-right:max(12px,env(safe-area-inset-right));
+}
+.voicebox-panel{max-width:100%}
+@media (max-width:420px){
+  .dashboard{padding-top:calc(10px + env(safe-area-inset-top));gap:10px}
+  .cockpit{padding:10px 8px}
+  .voicebox-panel{padding:8px!important}
+  .voicebox-panel .voicebox{min-height:clamp(230px,48svh,360px)!important;gap:clamp(9px,3vw,16px)!important}
+  .voicebox-panel .voice-display{min-height:clamp(230px,48svh,360px)!important;padding:12px 5px!important;gap:clamp(8px,3vw,13px)!important}
+  .voicebox-panel .voice-column{width:clamp(13px,4.2vw,19px)!important;flex-basis:clamp(13px,4.2vw,19px)!important;gap:4px!important}
+  .voicebox-panel .voice-column i{height:clamp(7px,1.3vh,10px)!important;min-height:7px!important}
+  .voicebox-panel .voice-side{gap:5px!important}
+  .voicebox-panel .voice-side span{min-height:30px!important;font-size:8px!important}
+  .quick-controls{gap:6px;padding:7px}
+  .quick-controls button{min-height:44px;font-size:8px}
+}
+@media (min-width:600px){
+  .dashboard{padding:calc(22px + env(safe-area-inset-top)) 24px calc(22px + env(safe-area-inset-bottom));gap:18px}
+  .cockpit{padding:20px}
+  .voicebox-panel{max-width:900px!important;padding:18px!important}
+  .voicebox-panel .voicebox{min-height:clamp(360px,55svh,620px)!important;gap:clamp(28px,6vw,80px)!important}
+  .voicebox-panel .voice-display{min-height:clamp(360px,55svh,620px)!important}
+  .voicebox-panel .voice-column{width:clamp(28px,5vw,54px)!important;flex-basis:clamp(28px,5vw,54px)!important}
+  .voicebox-panel .voice-column i{height:clamp(11px,1.6vh,18px)!important;min-height:11px!important}
+  .voicebox-panel .voice-side span{min-height:44px!important;font-size:11px!important}
+  .instrument-row{max-width:620px}
+}
+@media (orientation:landscape) and (max-height:520px){
+  .dashboard{min-height:100svh;gap:8px;padding-top:8px;padding-bottom:8px}
+  .topbar{padding-bottom:6px}
+  .voicebox-panel .voicebox,.voicebox-panel .voice-display{min-height:220px!important}
+  .voicebox-panel .voice-column i{height:7px!important;min-height:7px!important}
+  .instrument-row{margin-bottom:8px}
+}
