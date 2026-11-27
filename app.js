@@ -28,7 +28,7 @@ function add(who, text) {
 }
 
 function speak(text) {
-  const scanner = document.querySelector(".scanner");
+  const scanner = document.querySelector(".voicebox");
   const stopScanner = () => scanner?.classList.remove("speaking");
   stopScanner();
   if (!cfg.voice || !window.speechSynthesis) return;
