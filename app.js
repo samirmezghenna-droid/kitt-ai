@@ -142,6 +142,15 @@ function reply(text) {
   $("systemState").textContent = "SYSTÈMES OPÉRATIONNELS";
 }
 
+$("systemCheck").addEventListener("click", () => {
+  const voiceAvailable = Boolean(window.speechSynthesis);
+  const micAvailable = Boolean(Speech());
+  reply("Vérification terminée. Interface opérationnelle. Synthèse vocale " +
+    (voiceAvailable ? "disponible" : "indisponible") +
+    ". Reconnaissance vocale " + (micAvailable ? "détectée" : "non détectée") +
+    ". Aucun diagnostic mécanique du véhicule n'est connecté.");
+});
+
 async function askAI(text) {
   if (!cfg.endpoint) return null;
   try {
